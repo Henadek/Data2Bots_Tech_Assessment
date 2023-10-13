@@ -2,7 +2,7 @@ import unittest
 import json
 import os
 
-f_path = os.path.join(os.path.dirname(__file__), '../schema')
+f_path = os.path.join(os.path.dirname(__file__), '../python_engineer_experienced_professional/schema')
 f_path_list = [f'{f_path}/{i}' for i in os.listdir(f_path) if 'schema' in i]
 output_data = []
 for i in f_path_list:
