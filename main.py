@@ -3,7 +3,7 @@ import os
 import unittest
 
 
-def read_data() -> json:
+def read_data() -> dict:
     # TODO: Reads a JSON file similar to what's present in this location (./data/)
     f_path = os.path.join(os.path.dirname(__file__), 'python_engineer_experienced_professional/data')
     # print(os.listdir(f_path))
@@ -14,7 +14,7 @@ def read_data() -> json:
     return json_data
 
 
-def parse_data(json_data) -> json:
+def parse_data(json_data) -> dict:
     # TODO: Sniffs the schema of the JSON file
     parsed_data = None
     for i in json_data.keys():
@@ -31,15 +31,20 @@ def parse_data(json_data) -> json:
                     pass
     parsed_data = json_data
 
-    return parsed_data
+    return parsed_data['message']
 
 
-def output_data() -> json:
+def output_data(parsed_data) -> json:
     # TODO: Dumps the output in (./schema/)
-    pass
+    f_path = os.path.join(os.path.dirname(__file__), 'python_engineer_experienced_professional/schema')
 
+    with open(f'{f_path}/schema_1.json', 'w') as fh:
+        json.dump(parsed_data, fh)
+
+    return parsed_data
 
 
 json_data = read_data()
 processed_data = parse_data(json_data)
-print(processed_data)
+result = output_data(processed_data)
+print(result)
