@@ -1,5 +1,6 @@
 import json
 import os
+import unittest
 
 
 def read_data() -> json:
@@ -15,8 +16,22 @@ def read_data() -> json:
 
 def parse_data(json_data) -> json:
     # TODO: Sniffs the schema of the JSON file
-    print(json_data.keys())
-    pass
+    parsed_data = None
+    for i in json_data.keys():
+        if i == 'message':
+            message_keys = json_data[i].keys()
+            for attr in message_keys:
+                # print(attr)
+                json_data[i][attr]
+                # add tag and description keys
+                try:
+                    json_data[i][attr]['tag'] = ''
+                    json_data[i][attr]['description'] = ''
+                except TypeError:
+                    pass
+    parsed_data = json_data
+
+    return parsed_data
 
 
 def output_data() -> json:
@@ -26,6 +41,5 @@ def output_data() -> json:
 
 
 json_data = read_data()
-# print(json_data)
 processed_data = parse_data(json_data)
 print(processed_data)
