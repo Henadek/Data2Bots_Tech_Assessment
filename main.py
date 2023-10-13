@@ -1,6 +1,5 @@
 import json
 import os
-import unittest
 
 
 def read_data() -> dict:
@@ -14,7 +13,7 @@ def read_data() -> dict:
     return json_data
 
 
-def parse_data(json_data) -> dict:
+def parse_data(json_data: dict) -> dict:
     # TODO: Sniffs the schema of the JSON file
     parsed_data = None
     for i in json_data.keys():
@@ -27,6 +26,7 @@ def parse_data(json_data) -> dict:
                 try:
                     json_data[i][attr]['tag'] = ''
                     json_data[i][attr]['description'] = ''
+                    json_data[i][attr]['required'] = False
                 except TypeError:
                     pass
     parsed_data = json_data
@@ -34,7 +34,7 @@ def parse_data(json_data) -> dict:
     return parsed_data['message']
 
 
-def output_data(parsed_data) -> json:
+def output_data(parsed_data: dict) -> json:
     # TODO: Dumps the output in (./schema/)
     f_path = os.path.join(os.path.dirname(__file__), 'python_engineer_experienced_professional/schema')
 
