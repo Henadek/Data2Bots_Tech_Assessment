@@ -2,12 +2,9 @@ import json
 import os
 
 
-def read_data() -> dict:
+def read_data(json_file: json) -> dict:
     # TODO: Reads a JSON file similar to what's present in this location (./data/)
-    f_path = os.path.join(os.path.dirname(__file__), 'python_engineer_experienced_professional/data')
-    # print(os.listdir(f_path))
-
-    with open(f'{f_path}/data_1.json') as fh:
+    with open(json_file) as fh:
         json_data = json.load(fh)
 
     return json_data
@@ -34,17 +31,20 @@ def parse_data(json_data: dict) -> dict:
     return parsed_data['message']
 
 
-def output_data(parsed_data: dict) -> json:
+def output_data(parsed_data: dict, json_file: json) -> json:
     # TODO: Dumps the output in (./schema/)
-    f_path = os.path.join(os.path.dirname(__file__), 'python_engineer_experienced_professional/schema')
-
-    with open(f'{f_path}/schema_1.json', 'w') as fh:
+    with open(json_file, 'w') as fh:
         json.dump(parsed_data, fh)
 
     return parsed_data
 
 
-json_data = read_data()
-processed_data = parse_data(json_data)
-result = output_data(processed_data)
-print(result)
+f_path = os.path.join(os.path.dirname(__file__), 'python_engineer_experienced_professional/data')
+for i in os.listdir(f_path):
+    cwd_path = f'{f_path}/{i}'
+    json_data = read_data(cwd_path)
+    processed_data = parse_data(json_data)
+    output_file = cwd_path.replace('data', 'schema')
+    result = output_data(processed_data, output_file)
+    print(result)
+
